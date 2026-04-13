@@ -1,135 +1,400 @@
-export interface Product {
+export interface TenderProduct {
   id: number;
   ft: number;
   category: string;
   spanishName: string;
   englishName: string;
   qty: number;
-  specs: string;
+  size: string;
+  specs: string[];
+  competitiveStatus: "single-source" | "near-single-source" | "competitive";
+  statusDetail: string;
+  competitors: CompetitorProduct[];
 }
 
-export interface Competitor {
-  category: number;
-  categoryName: string;
+export interface CompetitorProduct {
   company: string;
   product: string;
   country: string;
   website: string;
   fdaCleared: boolean;
   fdaDetail: string;
-  notes: string;
-  isPrimaryMatch: boolean;
-  isSingleSource: boolean;
+  matchType: "exact" | "close" | "alternative";
+  matchNotes: string;
+  keyDifferences: string;
 }
 
-export const products: Product[] = [
+export const tenderProducts: TenderProduct[] = [
   {
     id: 1,
     ft: 100570,
     category: "Collagen-Alginate Wound Dressing",
     spanishName: "Apósito a base de colágeno y alginato",
-    englishName: "Collagen-Alginate Wound Dressing, 10.2cm x 11.1cm (4\" x 4⅜\")",
+    englishName: "Collagen-Alginate Wound Dressing",
+    size: '10.2cm x 11.1cm (4" x 4⅜")',
     qty: 115200,
-    specs: "Sterile, non-adherent, soft and conformable. Absorbent and gelling properties. Maintains moist wound environment while controlling exudate. Provides structural support for cellular growth and tissue regeneration. ISO 13485 certified, FDA cleared.",
+    specs: [
+      "Sterile collagen and alginate-based",
+      "Non-adherent, soft and conformable",
+      "Absorbent and gelling properties",
+      "Maintains moist wound environment",
+      "Controls exudate",
+      "Structural support for cellular growth",
+      "ISO 13485 certified, FDA cleared",
+    ],
+    competitiveStatus: "competitive",
+    statusDetail: "5+ manufacturers offer collagen-alginate dressings — most room for competitive bidding",
+    competitors: [
+      {
+        company: "3M / Solventum",
+        product: "FIBRACOL Plus",
+        country: "USA",
+        website: "solventum.com",
+        fdaCleared: true,
+        fdaDetail: "510(k) K982597",
+        matchType: "exact",
+        matchNotes: '90% collagen / 10% calcium alginate. 4"x4-3/8" size matches tender exactly.',
+        keyDifferences: "Original collagen-alginate combo dressing. Benchmark product.",
+      },
+      {
+        company: "Human BioSciences",
+        product: "Medifil II",
+        country: "USA",
+        website: "humanbiosciences.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "close",
+        matchNotes: "100% type I bovine native collagen particles. Different format (particles vs sheet).",
+        keyDifferences: "Collagen particles rather than sheet dressing — requires secondary dressing.",
+      },
+      {
+        company: "Safe n' Simple",
+        product: "Simpurity Collagen Pad",
+        country: "USA",
+        website: "sns-medical.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "close",
+        matchNotes: '4"x4" collagen pad available. Full wound care line.',
+        keyDifferences: "Collagen-only pad, no alginate component. Lower cost alternative.",
+      },
+      {
+        company: "DermaRite Industries",
+        product: "DermaCol/Ag",
+        country: "USA",
+        website: "dermarite.com",
+        fdaCleared: true,
+        fdaDetail: "FDA registered",
+        matchType: "close",
+        matchNotes: "Collagen + sodium alginate + CMC + EDTA matrix. Also available with silver (DermaCol/Ag).",
+        keyDifferences: "Added CMC and EDTA beyond standard collagen-alginate. Silver variant available.",
+      },
+      {
+        company: "Foryou Medical (LUOFUCON)",
+        product: "Collagen Wound Dressing",
+        country: "China",
+        website: "en.foryoumedical.com",
+        fdaCleared: true,
+        fdaDetail: "510(k)",
+        matchType: "alternative",
+        matchNotes: "Chinese manufacturer with FDA-cleared collagen dressings.",
+        keyDifferences: "Lower cost. May not have the same LatAm distribution network.",
+      },
+    ],
   },
   {
     id: 2,
     ft: 105295,
     category: "Nano Hemicellulose Membrane & Gel",
     spanishName: "Sistema de membrana y gel de hemicelulosa de nanoestructura",
-    englishName: "Nano-structured Hemicellulose Membrane (8cm x 8cm) + Gel (90ml)",
+    englishName: "Nano-structured Hemicellulose Membrane + Activating Gel",
+    size: "Membrane 8cm x 8cm, Gel 90ml",
     qty: 3600,
-    specs: "Plant-derived stem cells in biological hemicellulose membrane (<2nm thick). Creates cellular signaling system mimicking extracellular matrix. Positively charged at physiological pH — removes bacteria electrostatically. 100% natural, biodegradable, antibiotic without silver. Manufactured with nanotechnology.",
+    specs: [
+      "Plant-derived stem cells",
+      "Biological hemicellulose membrane <2nm thick",
+      "Creates cellular signaling system",
+      "Mimics extracellular matrix structure",
+      "Includes activating gel",
+      "Positively charged at physiological pH",
+      "Removes bacteria electrostatically (no silver)",
+      "100% natural, biodegradable, nanotechnology",
+    ],
+    competitiveStatus: "single-source",
+    statusDetail: "Genadyne is the ONLY manufacturer worldwide matching these specifications",
+    competitors: [
+      {
+        company: "Genadyne Biotechnologies",
+        product: "NanoGen Aktiv + NanoGen Aktigel",
+        country: "USA (New York)",
+        website: "genadyne.com",
+        fdaCleared: true,
+        fdaDetail: "Commercially available in US",
+        matchType: "exact",
+        matchNotes: "This IS the product described in the tender. Plant stem cells, nano-hemicellulose, positively charged, no silver.",
+        keyDifferences: "Sole manufacturer. Distributed in Latin America by Promedon (Argentina, Chile) and IGEA (Mexico).",
+      },
+    ],
   },
   {
     id: 3,
     ft: 105362,
     category: "Lyophilized 3D Collagen Matrix",
     spanishName: "Matriz tridimensional de colágeno liofilizada de poros abiertos",
-    englishName: "Lyophilized 3D Open-Pore Collagen Matrix, 102 x 102 x 3mm",
+    englishName: "Lyophilized 3D Open-Pore Collagen Matrix",
+    size: "102 x 102 x 3mm",
     qty: 10800,
-    specs: "100% bovine collagen types I, III, and V. Conforms to wound bed. Moldable. Local hemostatic effect. Biodegradable. Absorbs 20x its own weight. Latex-free. Sterile.",
+    specs: [
+      "100% bovine collagen types I, III, and V",
+      "Conforms to wound bed",
+      "Moldable",
+      "Local hemostatic effect",
+      "Biodegradable",
+      "Absorbs 20x its own weight",
+      "Latex-free",
+      "Sterile",
+    ],
+    competitiveStatus: "near-single-source",
+    statusDetail: "MatriDerm is the ONLY product specifying bovine collagen types I, III, AND V together",
+    competitors: [
+      {
+        company: "MedSkin Solutions Dr. Suwelack AG",
+        product: "MatriDerm",
+        country: "Germany",
+        website: "matriderm.com",
+        fdaCleared: true,
+        fdaDetail: "510(k) K201577",
+        matchType: "exact",
+        matchNotes: "Native bovine collagen I, III, V with elastin hydrolysate. Lyophilized, non-cross-linked, open pore. 170+ publications, 300,000+ patients.",
+        keyDifferences: "CryoSafe processing preserves native structure. Used in 70+ countries. The only product matching I/III/V spec.",
+      },
+      {
+        company: "Integra LifeSciences",
+        product: "Integra Wound Matrix",
+        country: "USA",
+        website: "integralife.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Bovine collagen + glycosaminoglycan (GAG) + silicone bilayer. Market leader in dermal regeneration.",
+        keyDifferences: "Does NOT specify collagen types I, III, V. Different composition — includes GAG and silicone layer. Would not meet tender spec.",
+      },
+    ],
   },
   {
     id: 4,
     ft: 107365,
     category: "Hydrogel with Ionic Silver & CMC",
     spanishName: "Hidrogel con plata iónica y carboximetilcelulosa",
-    englishName: "Hydrogel with Ionic Silver (0.024%) and CMC (2.5%), 8oz tube",
+    englishName: "Hydrogel with Ionic Silver (0.024%) and CMC (2.5%)",
+    size: "8oz tube (also 0.25oz, 1.5oz, 3oz)",
     qty: 14400,
-    specs: "Ionic silver at 0.024% concentration. 2.5% carboxymethylcellulose. Available in 0.25oz, 1.5oz, 3.0oz, and 8.0oz tube presentations.",
+    specs: [
+      "Ionic silver at 0.024%",
+      "2.5% carboxymethylcellulose (CMC)",
+      "Hydrogel format",
+      "Tube presentations: 0.25oz, 1.5oz, 3oz, 8oz",
+    ],
+    competitiveStatus: "near-single-source",
+    statusDetail: "SilvaSorb matches the exact silver percentage, CMC percentage, and all 4 tube sizes",
+    competitors: [
+      {
+        company: "Medline Industries",
+        product: "SilvaSorb Gel",
+        country: "USA (Illinois)",
+        website: "medline.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "exact",
+        matchNotes: "Ionic silver 0.024% + CMC 2.5%. All 4 tube sizes (0.25, 1.5, 3, 8 oz) match tender exactly. Microlattice silver technology.",
+        keyDifferences: "3-day antimicrobial barrier. Non-staining ionic silver. Broad spectrum (MRSA, VRE).",
+      },
+      {
+        company: "Cardinal Health",
+        product: "Hydrogel Ag",
+        country: "USA",
+        website: "cardinalhealth.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Silver hydrogel wound gel. Different silver concentration than tender spec.",
+        keyDifferences: "Silver concentration and CMC percentage likely differ from the 0.024% / 2.5% spec. Would need to verify exact formulation.",
+      },
+      {
+        company: "Integra LifeSciences",
+        product: "MediHoney Ag Gel",
+        country: "USA",
+        website: "integralife.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Honey-based wound gel with silver. Different mechanism of action.",
+        keyDifferences: "Manuka honey + silver formulation — completely different base than ionic silver + CMC. Would not meet tender spec.",
+      },
+    ],
   },
   {
     id: 5,
     ft: 108611,
     category: "Hydrocellular Foam (Quadrilobed)",
-    spanishName: "Apósito combinado espuma hidrocelular con adhesivo de silicona",
-    englishName: "Hydrocellular Foam Dressing with Silicone Adhesive, Quadrilobed",
+    spanishName: "Apósito combinado espuma hidrocelular con adhesivo de silicona, cuadrilobular",
+    englishName: "Hydrocellular Foam Dressing with Silicone Adhesive, Quadrilobed Shape",
+    size: "21.6cm x 23cm (multiple sizes 10.3cm to 25.5cm)",
     qty: 34200,
-    specs: "Combined dressing with hydrocellular foam base and silicone adhesive. Absorbent padded central core. Visual indicator for dressing change. Repositionable. Quadrilobed shape. Multiple sizes from 10.3cm to 25.5cm. Sterile, single use.",
+    specs: [
+      "Hydrocellular foam base",
+      "Silicone adhesive",
+      "Absorbent padded central core",
+      "Visual indicator for dressing change",
+      "Repositionable",
+      "Quadrilobed shape",
+      "Sterile, single use",
+    ],
+    competitiveStatus: "single-source",
+    statusDetail: "ALLEVYN Life is the ONLY foam dressing with a quadrilobe shape",
+    competitors: [
+      {
+        company: "Smith+Nephew",
+        product: "ALLEVYN Life",
+        country: "UK",
+        website: "smith-nephew.com",
+        fdaCleared: true,
+        fdaDetail: "510(k) cleared",
+        matchType: "exact",
+        matchNotes: "ONLY quadrilobe foam dressing on the market. 5-layer construction. Visual change indicator. All tender sizes available.",
+        keyDifferences: "Sole manufacturer of this shape. Up to 7-day wear time. Hyper-absorber lock-away core + masking layer.",
+      },
+      {
+        company: "Molnlycke Health Care",
+        product: "Mepilex Border Flex",
+        country: "Sweden",
+        website: "molnlycke.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Flex-cut shape (NOT quadrilobe). Safetac silicone technology. 5-layer foam.",
+        keyDifferences: "Flex-cut cross shape, not quadrilobe. Would NOT meet the quadrilobe shape requirement in the tender.",
+      },
+      {
+        company: "Coloplast",
+        product: "Biatain Silicone",
+        country: "Denmark",
+        website: "coloplast.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Square silicone foam dressing with 3DFit Technology.",
+        keyDifferences: "Standard square shape — NOT quadrilobe. Would NOT meet shape requirement.",
+      },
+      {
+        company: "ConvaTec",
+        product: "AQUACEL Foam Pro",
+        country: "UK/USA",
+        website: "convatec.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Hydrofiber + foam combo with silicone border. Only foam with Hydrofiber technology.",
+        keyDifferences: "Standard shape with silicone border — NOT quadrilobe. Different absorption mechanism (Hydrofiber).",
+      },
+    ],
   },
   {
     id: 6,
     ft: 109014,
     category: "Acellular Fish Skin Matrix",
     spanishName: "Matriz acelular con ácidos grasos y omega 3",
-    englishName: "Acellular Intact Fish Skin Matrix (Gadus morhua), Fragmented 4cm²",
+    englishName: "Acellular Intact Fish Skin Matrix (Atlantic Cod)",
+    size: "Fragmented 4cm² (also laminated, fenestrated, mesh formats)",
     qty: 18000,
-    specs: "Atlantic cod (Gadus morhua) skin matrix. Contains fatty acids, omega-3, collagen. 3D structure with elastic properties. Available in fragmented, laminated, fenestrated, and mesh formats. Sterile, single-use, biodegradable.",
+    specs: [
+      "Atlantic cod (Gadus morhua) skin",
+      "Protein composition similar to human skin",
+      "Contains fatty acids, omega-3, collagen",
+      "3D structure with elastic properties",
+      "Formats: fragmented, laminated, fenestrated, mesh",
+      "Bioburden <950 CFU pre-sterilization",
+      "Sterile, single-use, biodegradable",
+    ],
+    competitiveStatus: "single-source",
+    statusDetail: "Kerecis is the ONLY manufacturer of acellular fish skin wound matrix in the world",
+    competitors: [
+      {
+        company: "Kerecis (now Coloplast)",
+        product: "Kerecis Omega3 Wound",
+        country: "Iceland / Denmark",
+        website: "kerecis.com",
+        fdaCleared: true,
+        fdaDetail: "510(k) cleared 2013",
+        matchType: "exact",
+        matchNotes: "SOLE MANUFACTURER worldwide. Decellularized intact Atlantic cod skin. All formats match: MicroGraft (fragmented), Omega3 Wound (laminated), Shield (fenestrated), GraftGuide (mesh).",
+        keyDifferences: "Only non-mammalian acellular dermal matrix on the market. Acquired by Coloplast for $1.3B (2023). Preserved omega-3 fatty acids unique to this product.",
+      },
+    ],
   },
   {
     id: 7,
     ft: 109011,
     category: "Hydrocolloid Dressing",
     spanishName: "Apósito hidrocoloide con efecto regulador",
-    englishName: "Hydrocolloid Dressing with Regulating Effect, 15cm x 15cm",
+    englishName: "Hydrocolloid Dressing with Regulating Effect",
+    size: "15cm x 15cm",
     qty: 25200,
-    specs: "Single-layer dressing with powdered components that absorb and regulate wound fluids. Semi-permeable polyurethane outer layer. Hydrocolloid contact layer (CMC, pectin, cellulose). Absorbent and breathable.",
+    specs: [
+      "Single-layer dressing",
+      "Powdered components absorb and regulate fluids",
+      "Semi-permeable polyurethane outer layer",
+      "Hydrocolloid contact layer (CMC, pectin, cellulose)",
+      "Absorbent",
+      "Breathable / moisture vapor transmission",
+    ],
+    competitiveStatus: "competitive",
+    statusDetail: "4+ manufacturers offer hydrocolloid dressings — standard wound care category",
+    competitors: [
+      {
+        company: "ConvaTec",
+        product: "DuoDERM Signal",
+        country: "UK/USA",
+        website: "convatec.com",
+        fdaCleared: true,
+        fdaDetail: "510(k) cleared",
+        matchType: "exact",
+        matchNotes: "Hydrocolloid with visual change indicator. CMC + pectin inner layer, polyurethane outer. 15x15cm available. ConvaTec invented hydrocolloid dressings.",
+        keyDifferences: "CGF (Control Gel Formula) technology. DuoDERM was the first hydrocolloid dressing ever made.",
+      },
+      {
+        company: "Coloplast",
+        product: "Comfeel Plus",
+        country: "Denmark",
+        website: "coloplast.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "close",
+        matchNotes: "CMC particles in adhesive/elastomer matrix with calcium alginate. Polyurethane film. 15x15cm available.",
+        keyDifferences: "Pectin-free, latex-free. Uses calcium alginate instead of pectin. Different composition but same function.",
+      },
+      {
+        company: "3M / Solventum",
+        product: "Tegaderm Hydrocolloid",
+        country: "USA",
+        website: "solventum.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "close",
+        matchNotes: "Long-wearing water-resistant hydrocolloid. Available in thin, standard, oval, square, and sacral shapes.",
+        keyDifferences: "May not have the specific regulating/indicator feature described in tender.",
+      },
+      {
+        company: "Cardinal Health",
+        product: "Kendall Hydrocolloid",
+        country: "USA",
+        website: "cardinalhealth.com",
+        fdaCleared: true,
+        fdaDetail: "FDA cleared",
+        matchType: "alternative",
+        matchNotes: "Kendall alginate hydrocolloid with 30% alginate for increased absorbency.",
+        keyDifferences: "Higher alginate content. More budget-oriented product. May not have indicator feature.",
+      },
+    ],
   },
 ];
-
-export const competitors: Competitor[] = [
-  // Category 1 — Collagen-Alginate
-  { category: 1, categoryName: "Collagen-Alginate Wound Dressing", company: "3M / Solventum", product: "FIBRACOL Plus", country: "USA", website: "solventum.com", fdaCleared: true, fdaDetail: "510(k) K982597", notes: "90% collagen / 10% calcium alginate. Original collagen-alginate combo. 4\"x4-3/8\" matches tender exactly.", isPrimaryMatch: true, isSingleSource: false },
-  { category: 1, categoryName: "Collagen-Alginate Wound Dressing", company: "Human BioSciences", product: "Medifil II / SkinTemp II", country: "USA", website: "humanbiosciences.com", fdaCleared: true, fdaDetail: "Yes", notes: "Collagen wound dressings with alginate options.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 1, categoryName: "Collagen-Alginate Wound Dressing", company: "Safe n' Simple", product: "Simpurity Collagen Pad", country: "USA", website: "safensimple.com", fdaCleared: true, fdaDetail: "Yes", notes: "4\"x4\" collagen pad, cost-effective alternative.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 1, categoryName: "Collagen-Alginate Wound Dressing", company: "DermaRite Industries", product: "DermaCol/Ag Collagen", country: "USA", website: "dermarite.com", fdaCleared: true, fdaDetail: "Yes", notes: "Silver and non-silver collagen dressing options.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 1, categoryName: "Collagen-Alginate Wound Dressing", company: "Foryou Medical (LUOFUCON)", product: "Collagen Wound Dressing", country: "China", website: "foryoumedical.com", fdaCleared: true, fdaDetail: "510(k)", notes: "Lower-cost manufacturer with FDA clearance.", isPrimaryMatch: false, isSingleSource: false },
-
-  // Category 2 — Nano Hemicellulose
-  { category: 2, categoryName: "Nano Hemicellulose Membrane & Gel", company: "Genadyne Biotechnologies", product: "NanoGen Aktiv + Aktigel", country: "USA (NY)", website: "genadyne.com", fdaCleared: true, fdaDetail: "Yes", notes: "SOLE MANUFACTURER. Plant stem cells, nanotechnology, positively charged at physiological pH. Distributed in LatAm by Promedon & IGEA.", isPrimaryMatch: true, isSingleSource: true },
-
-  // Category 3 — Collagen Matrix
-  { category: 3, categoryName: "Lyophilized 3D Collagen Matrix", company: "MedSkin Solutions Dr. Suwelack", product: "MatriDerm", country: "Germany", website: "matriderm.com", fdaCleared: true, fdaDetail: "510(k) K201577", notes: "ONLY product with bovine collagen I, III, AND V in lyophilized 3D open-pore matrix. Used in 70+ countries.", isPrimaryMatch: true, isSingleSource: true },
-  { category: 3, categoryName: "Lyophilized 3D Collagen Matrix", company: "Integra LifeSciences", product: "Integra Wound Matrix", country: "USA", website: "integralife.com", fdaCleared: true, fdaDetail: "Yes", notes: "Bovine collagen + GAG + silicone. Different composition — no types III/V. Market leader in skin substitutes.", isPrimaryMatch: false, isSingleSource: false },
-
-  // Category 4 — Hydrogel Silver
-  { category: 4, categoryName: "Hydrogel with Ionic Silver & CMC", company: "Medline Industries", product: "SilvaSorb Gel", country: "USA (IL)", website: "medline.com", fdaCleared: true, fdaDetail: "Yes", notes: "EXACT MATCH: ionic silver 0.024% + CMC 2.5%. All 4 tube sizes match. Microlattice silver technology.", isPrimaryMatch: true, isSingleSource: false },
-  { category: 4, categoryName: "Hydrogel with Ionic Silver & CMC", company: "Cardinal Health", product: "Hydrogel Ag", country: "USA", website: "cardinalhealth.com", fdaCleared: true, fdaDetail: "Yes", notes: "Silver hydrogel alternative, different concentration.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 4, categoryName: "Hydrogel with Ionic Silver & CMC", company: "Integra LifeSciences", product: "MediHoney Ag Gel", country: "USA", website: "integralife.com", fdaCleared: true, fdaDetail: "Yes", notes: "Silver-based gel wound care options.", isPrimaryMatch: false, isSingleSource: false },
-
-  // Category 5 — Foam Quadrilobe
-  { category: 5, categoryName: "Hydrocellular Foam (Quadrilobed)", company: "Smith+Nephew", product: "ALLEVYN Life", country: "UK", website: "smith-nephew.com", fdaCleared: true, fdaDetail: "Yes", notes: "SOLE QUADRILOBE MANUFACTURER. 5-layer construction, visual change indicator, silicone adhesive.", isPrimaryMatch: true, isSingleSource: true },
-  { category: 5, categoryName: "Hydrocellular Foam (Quadrilobed)", company: "Molnlycke Health Care", product: "Mepilex Border Flex", country: "Sweden", website: "molnlycke.com", fdaCleared: true, fdaDetail: "Yes", notes: "Flex-cut shape (not quadrilobe). Safetac silicone. Major competitor in foam category.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 5, categoryName: "Hydrocellular Foam (Quadrilobed)", company: "Coloplast", product: "Biatain Silicone", country: "Denmark", website: "coloplast.com", fdaCleared: true, fdaDetail: "Yes", notes: "Silicone foam dressing, square shape. 3DFit technology.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 5, categoryName: "Hydrocellular Foam (Quadrilobed)", company: "ConvaTec", product: "AQUACEL Foam Pro", country: "UK/USA", website: "convatec.com", fdaCleared: true, fdaDetail: "Yes", notes: "Hydrofiber + foam combo with silicone border. Not quadrilobe.", isPrimaryMatch: false, isSingleSource: false },
-
-  // Category 6 — Fish Skin
-  { category: 6, categoryName: "Acellular Fish Skin Matrix", company: "Kerecis (Coloplast)", product: "Kerecis Omega3 Wound", country: "Iceland / Denmark", website: "kerecis.com", fdaCleared: true, fdaDetail: "510(k) 2013", notes: "SOLE MANUFACTURER worldwide. Only acellular fish skin (Atlantic cod) matrix. Acquired by Coloplast for $1.3B in 2023.", isPrimaryMatch: true, isSingleSource: true },
-
-  // Category 7 — Hydrocolloid
-  { category: 7, categoryName: "Hydrocolloid Dressing", company: "ConvaTec", product: "DuoDERM Signal / Granuflex", country: "UK/USA", website: "convatec.com", fdaCleared: true, fdaDetail: "Yes", notes: "Invented hydrocolloid dressings. CGF technology. Visual change indicator. 15x15cm available.", isPrimaryMatch: true, isSingleSource: false },
-  { category: 7, categoryName: "Hydrocolloid Dressing", company: "Coloplast", product: "Comfeel Plus", country: "Denmark", website: "coloplast.com", fdaCleared: true, fdaDetail: "Yes", notes: "CMC + alginate hydrocolloid. Multiple sizes.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 7, categoryName: "Hydrocolloid Dressing", company: "3M / Solventum", product: "Tegaderm Hydrocolloid", country: "USA", website: "solventum.com", fdaCleared: true, fdaDetail: "Yes", notes: "Thin and standard hydrocolloid options.", isPrimaryMatch: false, isSingleSource: false },
-  { category: 7, categoryName: "Hydrocolloid Dressing", company: "Cardinal Health", product: "Kendall Hydrocolloid", country: "USA", website: "cardinalhealth.com", fdaCleared: true, fdaDetail: "Yes", notes: "Cost-effective hydrocolloid alternative.", isPrimaryMatch: false, isSingleSource: false },
-];
-
-export const categoryInsights: Record<number, { status: string; color: string; detail: string }> = {
-  1: { status: "Competitive", color: "green", detail: "5+ manufacturers — most room for competitive bidding" },
-  2: { status: "Single Source", color: "red", detail: "Genadyne is the ONLY manufacturer matching these specs" },
-  3: { status: "Near Single Source", color: "orange", detail: "MatriDerm is the only collagen I/III/V matrix product" },
-  4: { status: "Near Single Source", color: "orange", detail: "SilvaSorb exact match on silver %, CMC %, and all tube sizes" },
-  5: { status: "Single Source", color: "red", detail: "ALLEVYN Life is the ONLY quadrilobe foam dressing" },
-  6: { status: "Single Source", color: "red", detail: "Kerecis is the ONLY fish skin matrix manufacturer worldwide" },
-  7: { status: "Competitive", color: "green", detail: "4+ manufacturers — standard hydrocolloid category" },
-};
