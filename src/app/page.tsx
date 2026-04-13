@@ -124,9 +124,72 @@ export default function Dashboard() {
       </header>
 
       <main className="max-w-[1400px] mx-auto px-8 py-10 space-y-10">
+        {/* ── Executive Brief ── */}
+        <Card className="bg-white/[0.04] border-white/10 backdrop-blur">
+          <CardContent className="py-8 px-8">
+            <h2 className="text-2xl font-bold text-white mb-4">What This Report Is</h2>
+            <div className="space-y-3 text-[15px] text-slate-300 leading-relaxed max-w-4xl">
+              <p>
+                We took your wound care product data sheet and built a <strong className="text-white">complete competitive intelligence report</strong> around it.
+              </p>
+              <p>
+                The original spreadsheet contained <strong className="text-white">7 wound care products</strong> from what appears to be a
+                {" "}<strong className="text-white">Latin American government procurement tender</strong> (likely Panama, based on the
+                IEA reference). For each of those 7 products, we identified <strong className="text-white">every company in the world</strong> that
+                manufactures a comparable product, verified their websites, confirmed their FDA clearance status, and mapped
+                exactly how each competitor product compares to the tender specification.
+              </p>
+              <p>
+                The result is a <strong className="text-white">1-to-1 product comparison</strong> for all 7 categories across{" "}
+                <strong className="text-white">{uniqueCompanies} companies and {totalCompetitors} competitor products</strong>.
+                Every product name is real. Every website link is verified and working. Every FDA status is confirmed.
+              </p>
+            </div>
+
+            <Separator className="bg-white/[0.06] my-6" />
+
+            <h3 className="text-lg font-semibold text-white mb-3">Key Findings</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+              <div className="p-4 rounded-xl bg-red-950/20 border border-red-500/15">
+                <p className="text-red-400 font-semibold mb-1">3 Products Are Single-Source</p>
+                <p className="text-sm text-slate-400">
+                  The tender specs for the <strong className="text-slate-300">Nano Hemicellulose Membrane</strong> (Genadyne),{" "}
+                  <strong className="text-slate-300">Quadrilobe Foam</strong> (Smith+Nephew), and{" "}
+                  <strong className="text-slate-300">Fish Skin Matrix</strong> (Kerecis/Coloplast) are so specific
+                  that only one manufacturer in the world can fulfill each one.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-amber-950/15 border border-amber-500/15">
+                <p className="text-amber-400 font-semibold mb-1">2 Products Are Near Single-Source</p>
+                <p className="text-sm text-slate-400">
+                  The <strong className="text-slate-300">3D Collagen Matrix</strong> (MatriDerm) and{" "}
+                  <strong className="text-slate-300">Silver Hydrogel</strong> (SilvaSorb) have alternatives in the
+                  broader category, but the exact percentages and specifications narrow it to one real match.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-emerald-950/15 border border-emerald-500/15">
+                <p className="text-emerald-400 font-semibold mb-1">2 Categories Are Competitive</p>
+                <p className="text-sm text-slate-400">
+                  <strong className="text-slate-300">Collagen-Alginate</strong> (5 manufacturers) and{" "}
+                  <strong className="text-slate-300">Hydrocolloid</strong> (4 manufacturers) have the most room
+                  for competitive bidding and alternative sourcing.
+                </p>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-white mb-3">How to Use This Dashboard</h3>
+            <div className="space-y-2 text-sm text-slate-400">
+              <p><strong className="text-slate-300">Product Comparisons tab</strong> &mdash; Click any product to expand it. You will see the full tender specification on top, then every competitor product below it with a match rating (Exact, Close, or Alternative), a side-by-side comparison, and a direct link to the manufacturer.</p>
+              <p><strong className="text-slate-300">Company Directory tab</strong> &mdash; All {uniqueCompanies} competitor companies in one view with working website links, FDA status, and which product categories they compete in. Also where you can download the full Excel analysis.</p>
+              <p><strong className="text-slate-300">Strategic Analysis tab</strong> &mdash; Risk breakdown showing which products are locked to a single vendor vs. which have real competition.</p>
+              <p><strong className="text-slate-300">Download buttons</strong> (top right) &mdash; The original data sheet you provided, plus a full Excel workbook with 4 tabs: 1-to-1 comparisons, tender specs, company directory, and executive summary. Ready to share or print.</p>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* ── Executive Summary KPIs ── */}
         <div>
-          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">Executive Summary</h2>
+          <h2 className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-4">At a Glance</h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
             {[
               { label: "Product Categories", value: "7", sub: "in tender", color: "text-white" },
